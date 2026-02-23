@@ -1,10 +1,12 @@
 ---
 name: seo-content-pipeline
 description: >
-  Full end-to-end SEO content creation pipeline. Use this skill whenever the user wants to:
-  write an SEO article, research keywords for content, create a content outline for SEO,
-  optimize a blog post for search engines, score or audit SEO content quality, check if
-  writing sounds too AI-generated, improve human-style writing, or run any part of the
+  Full end-to-end SEO content creation pipeline. Primary input is a product spec .md file
+  that describes the product, target user, use cases, and differentiators — this is what makes
+  output specific rather than generic. Also accepts a plain topic if no spec exists.
+  Use this skill whenever the user wants to: write an SEO article, research keywords,
+  create a content outline, optimize a blog post, score or audit SEO content quality,
+  check if writing sounds AI-generated, improve human-style writing, or run any part of the
   SEO content workflow (keyword research → outline → draft → optimize → score).
   Trigger even if the user only mentions one step — e.g. "write me an article about X"
   or "check my SEO" or "make this sound less AI" — because the full pipeline adds value.
@@ -33,6 +35,26 @@ A complete, opinionated workflow for producing high-quality SEO content that ran
 ```
 
 You may enter at any stage. If the user gives you a topic from scratch, run all 6 stages in sequence. If they hand you an existing draft, start at Stage 4 or 5 as appropriate.
+
+---
+
+## Input
+
+### Primary input — Product spec .md (preferred)
+A spec .md file describing the product or feature to write content for. This is what separates this skill from a generic SEO prompt — the pipeline reads the spec and customizes every stage around the actual product: keywords are chosen based on product positioning, the outline reflects real use cases, the draft uses product-specific language and examples.
+
+The spec .md should contain (ask the user if missing):
+- What the product/feature is and what it does
+- Target user and their pain points
+- Key use cases and differentiators
+- Tone of voice or brand guidelines (if any)
+
+**If a spec .md is provided:** extract the above information before running Stage 1. Reference it throughout all stages to keep output product-specific.
+
+**If no spec .md is provided:** ask the user before proceeding — *"Do you have a product spec file (.md) I can reference? This helps me tailor keywords, outline, and draft specifically to your product rather than writing generically. If not, just give me the topic and I'll proceed."* If they confirm no spec exists, proceed with topic text only and note that output will be more generic.
+
+### Secondary input — Plain topic text
+Accepted as fallback when no spec .md exists. The pipeline runs normally but outputs will be less product-specific.
 
 ---
 
@@ -147,11 +169,27 @@ KEY INSIGHT FROM SOCIAL DATA:
 
 ---
 
-### Fallback Mode (no Ahrefs API access)
-If Ahrefs API cannot be called, prompt the user:
-> "Could you go to Ahrefs > Keywords Explorer > paste the following keywords > export CSV and paste the results here?"
-> Provide the list of seed keywords to look up.
-Then parse the pasted data and continue from Step 5 normally.
+### Fallback Mode
+
+**Level 1 — No API but has Ahrefs account:**
+Ask the user: *"Could you go to Ahrefs > Keywords Explorer > paste the following keywords > export CSV and paste the results here?"*
+Provide the list of seed keywords. Parse the pasted data and continue from Step 5 normally.
+
+**Level 2 — No Ahrefs account at all (demo / free mode):**
+Use web search to estimate keyword data from free sources:
+
+| Signal | Free source | How to extract |
+|---|---|---|
+| Search volume estimate | Google Autocomplete | Search the keyword — note how many autocomplete variants appear; more variants = higher volume |
+| Search volume estimate | Ubersuggest free | Search `ubersuggest.io [keyword]` — extract volume from snippet if visible |
+| Search volume + KD | Semrush Free Keyword Tool | Go to `semrush.com/analytics/keywordoverview` — free tier shows volume, KD, and CPC for 10 searches/day |
+| Keyword difficulty estimate | Google Search results page | Search the keyword — count how many exact-match domains appear in top 10; more = higher difficulty |
+| Long-tail discovery | Google "People Also Ask" | Search the keyword — extract all PAA questions as long-tail keyword candidates |
+| Long-tail discovery | Google "Related searches" | Extract bottom-of-page related searches |
+
+Label all free-source data clearly as `[estimated]` in the output table. Note to the user that these are approximations and recommend verifying with Ahrefs before publishing decisions.
+
+Scoring in Step 5 still applies — use estimated values and flag the overall keyword research output as `[Free mode — estimates only]`.
 
 ---
 
