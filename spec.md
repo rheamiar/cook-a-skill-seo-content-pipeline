@@ -1,4 +1,5 @@
 day 1: spec approved by supervisor
+
 day 2: updated GEO rule, countinuously tested skill and edited spec
 
 ---
