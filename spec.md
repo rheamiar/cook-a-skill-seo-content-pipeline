@@ -1,3 +1,6 @@
+day 1: spec approved by supervisor
+day 2: updated GEO rule, countinuously tested skill and edited spec
+
 ---
 name: seo-content-pipeline
 description: >
@@ -27,14 +30,61 @@ A complete, opinionated workflow for producing high-quality SEO content that ran
       ↓
 [3] DRAFT — human-style writing
       ↓
-[4] SEO OPTIMIZATION (on-page checklist)
+[4] SEO + GEO OPTIMIZATION (on-page checklist)
       ↓
 [5] AI-PATTERN DETECTION & HUMANIZATION
       ↓
-[6] SCORING & EVALUATION REPORT
+[6] SCORING & EVALUATION REPORT (SEO + GEO)
 ```
 
+---
+
+## ⚠️ HARD RULES — APPLY TO EVERY WORD OF OUTPUT
+
+These rules override everything else. Violating any of these is an automatic failure at Stage 6 scoring.
+
+**RULE 1 — NO DASHES IN ARTICLE BODY (zero tolerance)**
+The article body must contain zero dash characters used as connectors or separators. This means:
+- No em dash: `—` between words or clauses (e.g. "AI tools — when used correctly" is FORBIDDEN)
+- No hyphen as connector: `X - Y` mid-sentence (e.g. "the result - a faster execution" is FORBIDDEN)
+- No `— Source` citation format at end of sentences
+
+To fix: rewrite as two separate sentences, use a comma, use a colon, or restructure the clause entirely.
+The ONLY acceptable use of a hyphen is inside a compound word (e.g. "well-known", "long-term", "on-chain") — not as a sentence connector.
+
+**RULE 2 — WORD COUNT HARD CAP**
+Article body must be 1,200–1,700 words. Do not exceed 1,700 under any circumstance.
+
+**RULE 3 — DEFAULT OUTPUT IS PLAIN TEXT**
+Never create a file (.docx, .pdf, etc.) unless the user explicitly asks for one.
+
+**RULE 4 — WAIT FOR USER INPUT**
+Never auto-start a stage or run research while waiting for a user decision.
+
+---
+
 You may enter at any stage. If the user gives you a topic from scratch, run all 6 stages in sequence. If they hand you an existing draft, start at Stage 4 or 5 as appropriate.
+
+**Before running any stage, always collect these inputs first. Do not proceed until you have them.**
+
+Collect inputs conversationally — ask ONE question at a time, wait for the answer, then ask the next. Do not list all questions at once.
+
+Question sequence — strict one-at-a-time, always wait for user reply before proceeding:
+
+1. First ask: "Do you have a product spec file (.md) you'd like me to reference? If yes, paste the contents here. If not, just share the topic and I'll proceed."
+   → STOP. Wait for the user's reply. Do not ask the next question yet.
+
+2. After receiving answer to question 1, ask: "What is your target market or country? (e.g. Vietnam, US, Singapore — this affects keyword research)"
+   → STOP. Wait for the user's reply. Do not ask the next question yet.
+
+3. After receiving answer to question 2, ask: "Do you have an Ahrefs API key? If yes, share it and I'll pull live keyword data. If not, which would you prefer — (A) share the real key now, or (B) proceed with free tools (Google autocomplete, People Also Ask, Semrush estimates) and I'll label everything as [estimated]?"
+   → STOP. Wait for the user to explicitly choose Option A or Option B before doing anything else. Do not start Stage 1 or run any research while waiting.
+
+4. Only after the user has answered all 3 questions AND confirmed the Ahrefs option should you begin Stage 1.
+
+IMPORTANT: Never auto-start the pipeline while waiting for a user decision. Never produce a .docx or any file output unless the user explicitly requests it — default output is plain text in the chat.
+
+If the user says they want to run only a specific stage (e.g. "just score my article"), skip the questions that are not relevant to that stage.
 
 ---
 
@@ -257,12 +307,13 @@ For each major H2 section, check:
 Assemble the final outline using the flow pattern from Step 1, keyword map from Step 2, and social expansions from Step 3.
 
 **Rules:**
-- H1: contains primary keyword (exact or natural variant)
-- Each H2: anchored to a long-tail keyword or core subtopic in the logical arc
+- H1: contains primary keyword, maximum 60 characters — no dashes, no "keyword — subtitle" format; write as a single natural sentence
+- Each H2: maximum 70 characters — long-tail keywords should be rewritten as a single natural sentence or flowing phrase in the heading (e.g. "How AI Is Used in Crypto Trading" not "AI crypto trading — how it works"); only fall back to placing the keyword in body text if it truly cannot read naturally as a heading — this should be rare; never use the format "keyword — subtitle" or "keyword - subtitle"
 - Each H3: either a long-tail keyword heading, a social reaction expansion, or a concrete sub-point
+- H2/H3 consistency: if an H2 section has H3 subsections, do NOT write standalone body content directly under the H2 before the H3s — move all content into the H3s instead; each H2 should serve as a container label, not a content block
+- Section order: Body sections → Conclusion → FAQ (FAQ is always the final section before the end of the article, never before the conclusion)
 - Intro: Hook → Problem → Promise (3-part structure, no keyword stuffing here)
 - FAQ section: minimum 3 questions, sourced from long-tail question keywords + recurring social questions
-- Conclusion: Summary → Key takeaway → CTA or next step
 
 ---
 
@@ -275,7 +326,7 @@ CONTENT BRIEF
 Target Keyword:      [primary keyword]
 Flow Pattern:        [chosen pattern — e.g. Problem → Solution]
 Search Intent:       [type]
-Recommended Length:  [X words]
+Recommended Length:  [X words — must be within 1,200–1,700 words hard cap]
 Target Audience:     [who is reading, what they know, what they need]
 Content Goal:        [rank / educate / convert / build trust]
 
@@ -360,8 +411,45 @@ Write the full article following the outline, in a natural, human, authoritative
 
 **Structure**
 - Intro: Open with a hook (stat, question, bold claim, or story). State the problem. Promise the value.
-- Body: Follow the outline. Each H2 section should open with a topic sentence and close with a transition.
+- Body: Follow the outline. Each H2 section should open with a topic sentence and close with a transition sentence that connects to the next section. Never end a section abruptly.
+- H2/H3 consistency: if a section has H3 subsections, all body content must live inside those H3s — do not write floating paragraphs between the H2 heading and the first H3.
+- FAQ placement: FAQ is always the last section of the article body, placed after the conclusion, never before it.
 - Conclusion: Summarize key points, give a clear takeaway, include a CTA or next step.
+- Word count: target 1,200–1,700 words. This is a hard cap — do not exceed 1,700 words. If running long, tighten paragraphs and cut redundant examples; do not remove entire sections. If running short, expand examples and evidence rather than adding new sections.
+
+**Transitions & Flow**
+Every paragraph must connect to the next. Use transitional phrases and sentence bridges to avoid the "list of facts" feeling:
+- Between sentences: "This matters because...", "The result is...", "That said...", "Here is where it gets interesting:", "The catch is..."
+- Between paragraphs: Start the new paragraph with a word or phrase that picks up from the previous one — echo a key term, use a contrasting opener ("But that edge has a limit."), or use a bridging question ("So what does that mean in practice?")
+- Between H2 sections: End each H2 block with 1 sentence that signals the transition — e.g. "That explains the upside. The downside is less discussed."
+- Never start two consecutive paragraphs with the same word or sentence structure.
+
+**Heading Formatting Rules**
+- Never use dashes (`-` or `—`) in headings to separate a keyword from a subtitle. Long-tail keywords should always be rewritten into headings as a single natural sentence or flowing phrase. Only move a keyword to body text if it truly cannot be made readable as a heading — this should be rare, not the default.
+- If a colon is needed in a heading, limit to one per article — overuse of colons in headings is an AI signal.
+- H1 maximum: 60 characters. H2 maximum: 70 characters. H3 maximum: 65 characters.
+- Headings must read as natural English phrases or questions, not keyword strings.
+
+**Bullet Point Rules**
+Bullets are allowed but must be used selectively:
+- USE bullets for: genuinely parallel items of equal weight (a list of tools, a list of steps, a checklist) where each item is short and self-contained
+- DO NOT use bullets for: ideas that have a logical sequence, content that can flow as prose with transitions, or any list where items have different levels of complexity
+- When in doubt: write it as prose with connectors ("first... second... third..." or "one option is... another is...") — prose with transitions always reads more naturally than a bullet list
+- Maximum 2 bullet lists per article — if you are reaching for a third, convert it to prose
+
+**Citation Format**
+Never use `— Source` or `- Source` at the end of a sentence. Always cite inline using one of these formats:
+- "According to [Source], [stat]."
+- "[Stat] ([Source], [Year])."
+- "[Stat], according to [Source]'s [Year] report."
+When referencing tools, platforms, or projects, include the official URL in parentheses on first mention — e.g. Token Metrics (tokenmetrics.com) — so readers do not accidentally find scam/clone sites.
+
+**Evidence & Examples Requirements**
+Every H3 section that makes a specific claim must include at least one of:
+- A concrete real-world example with a named event, date, or company
+- A data point with a named source
+- A link to a credible reference (official site, research paper, news article)
+Sections that only contain assertions without evidence will be flagged in Stage 5 and penalized in Stage 6 scoring.
 
 **Tone & Voice**
 - Write like a knowledgeable person explaining to a smart friend — not a textbook, not a press release.
@@ -404,43 +492,73 @@ Rules for data usage:
 
 ---
 
-## Stage 4 — SEO On-Page Optimization Checklist
+## Stage 4 — SEO + GEO Optimization Checklist
 
-After drafting, run through this checklist and fix any gaps:
+After drafting, run through this checklist and fix any gaps.
 
-### Title & Meta
+---
+
+### **SEO — Search Engine Optimization**
+Optimize for Google and traditional search engines to rank the article.
+
+#### Title & Meta
 - [ ] Title tag: 50–60 characters, contains primary keyword near the front
 - [ ] Meta description: 150–160 characters, contains primary keyword, has a hook/CTA
 - [ ] URL slug: short, lowercase, hyphenated, contains primary keyword
 
-### Content Structure
+#### Content Structure
 - [ ] H1 contains primary keyword (only one H1 in the article)
 - [ ] H2s use secondary keywords or question variants
 - [ ] Intro paragraph contains primary keyword within first 100 words
 - [ ] Conclusion contains primary keyword
-- [ ] Word count meets recommendation from Brief
+- [ ] Word count: within 1,200–1,700 words (hard cap — flag if over)
 
-### Keyword Usage
+#### Keyword Usage
 - [ ] Primary keyword density: 1–1.5%
 - [ ] No keyword stuffing (same phrase repeated unnaturally)
 - [ ] LSI/semantic keywords present throughout
 - [ ] At least 2–3 long-tail variants used
 
-### Readability
+#### Readability
 - [ ] Paragraphs: max 3–4 lines each
 - [ ] Flesch Reading Ease: aim for 60+ (readable by general audience)
 - [ ] Bullet points / numbered lists used where appropriate
 - [ ] No walls of text
 
-### Internal & External Signals
+#### Internal & External Signals
 - [ ] At least 2 internal link suggestions noted (placeholders if URLs unknown)
 - [ ] At least 1–2 authoritative external source suggestions noted
 - [ ] Image alt text recommendations included (if images are mentioned)
 
-### Schema / Snippet Opportunities
+#### Schema / Snippet Opportunities
 - [ ] FAQ section present (if relevant) → targets FAQ schema
 - [ ] How-to steps present (if relevant) → targets HowTo schema
 - [ ] Statistics or data points included (increases E-E-A-T signals)
+
+---
+
+### **GEO — Generative Engine Optimization**
+Optimize for AI engines (ChatGPT, Perplexity, Google AI Overview) to cite this article as a source.
+
+**Directness & extractability**
+- [ ] Every major question in the article is answered directly and explicitly — AI engines extract clean, self-contained answers
+- [ ] Key definitions are stated clearly in 1–2 sentences (not buried across paragraphs)
+- [ ] Each H2 section can stand alone and make sense without reading the rest of the article
+
+**Authority signals**
+- [ ] At least 3 data points with named sources — AI engines strongly prefer citing articles with verifiable evidence
+- [ ] Author expertise signals present: specific experience, credentials, or firsthand knowledge mentioned
+- [ ] Article takes a clear stance or conclusion — vague "it depends" articles are rarely cited by AI
+
+**Structure for AI parsing**
+- [ ] H2/H3 headings are written as clear topic labels, not clever/vague titles — AI uses headings to understand what each section is about
+- [ ] Summary or TL;DR either in intro or conclusion — gives AI a clean snippet to cite
+- [ ] No fluff paragraphs that don't add information — AI engines skip low-signal content
+
+**Entity & topic coverage**
+- [ ] Key entities (people, tools, brands, concepts) are named explicitly, not referred to vaguely
+- [ ] Topic is covered comprehensively enough that AI sees this as a complete source, not a partial one
+- [ ] Semantic keywords and related concepts are present — AI engines map topic coverage, not just keyword density
 
 ---
 
@@ -505,6 +623,20 @@ Conclusions are where AI patterns cluster most heavily. Scan the conclusion sepa
 - No rhetorical questions → add 1–2 where appropriate
 - No personal/direct asides → add occasional "Here's the thing:" or "Think about it this way:"
 
+**Flow & Transition Red Flags**
+- Two or more consecutive paragraphs that start with the same word or structure → rewrite openers
+- Paragraphs that end abruptly with no bridge to the next → add a 1-sentence transition
+- H2 sections that feel like separate articles with no connection to each other → add closing transition sentences
+- Body reads like a list of facts rather than a narrative → add causal connectors ("because", "which means", "the result is")
+- Zero transition phrases in the entire article → flag and add at least 5
+
+**Structural Red Flags (additional)**
+- Content written as floating paragraphs between an H2 and its H3 subsections → move all content inside the H3s
+- FAQ section placed before the conclusion → move FAQ to after conclusion
+- Headings that use `— ` or ` - ` as a separator between keyword and subtitle → rewrite as single natural sentence or use `:` sparingly
+- Tool or project name mentioned without official URL on first mention → add URL in parentheses
+- H3 section makes a claim with no example, data, or link → flag as "evidence needed"
+
 ### Humanization Instructions
 1. Read through the draft and highlight every AI pattern found.
 2. Rewrite flagged sections using alternatives from the table above.
@@ -553,10 +685,19 @@ SCORES (each out of 10)
    - E-E-A-T signals:        [notes]
 
 4. CONTENT FLOW              [X/10]
-   - Intro hook strength:    [Strong/Weak — notes]
-   - Logical progression:    [notes]
-   - Section transitions:    [Smooth/Choppy — notes]
-   - Conclusion clarity:     [notes]
+   - Intro hook strength:      [Strong/Weak — notes]
+   - Logical progression:      [notes]
+   - Paragraph transitions:    [count transitions present vs. needed]
+   - Section transitions:      [Smooth/Choppy — closing sentence present at each H2?]
+   - Conclusion clarity:       [notes]
+   - FAQ placement:            [✓ after conclusion / ✗ misplaced]
+   - H2/H3 structure:          [✓ consistent / ✗ floating content between H2 and H3]
+   - Prose vs bullet balance:  [bullet count: X — appropriate/overused]
+   - Citation format:          [✓ using "according to" / ✗ using dash format]
+   - Evidence per H3:          [X/X sections have concrete example or data]
+   - Tool URLs present:        [✓/✗ — first-mention URLs added for all tools]
+   - Heading length compliance:[H1: X chars ✓/✗ | H2s within 70 chars: X/X]
+   - Heading dash-free:        [✓ clean / ✗ X headings still use dash separators]
 
 5. KEYWORD DISTRIBUTION      [X/10]
    - Primary keyword:        [appears X times — distribution: even/front-loaded/sparse]
@@ -564,13 +705,21 @@ SCORES (each out of 10)
    - LSI/semantic coverage:  [Good/Needs more variety]
    - Over-optimization risk: [Low/Medium/High]
 
+6. GEO OPTIMIZATION          [X/10]
+   - Direct answers present: [✓/✗ — AI can extract clean answers]
+   - Key definitions clear:  [✓/✗ notes]
+   - Authority signals:      [data points cited: X/3 minimum]
+   - Heading clarity:        [Good/Needs work — headings as topic labels]
+   - Entity coverage:        [Good/Needs work]
+   - AI-extractable summary: [✓/✗ — TL;DR or clear conclusion present]
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-OVERALL SCORE: [X/50]  →  [X%]
+OVERALL SCORE: [X/60]  →  [X%]
 GRADE: [A / B / C / D]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 GRADE SCALE:
-A (90–100%): Publish-ready
+A (90–100%): Publish-ready — optimized for both search engines and AI engines
 B (75–89%):  Minor revisions recommended
 C (60–74%):  Significant improvements needed
 D (<60%):    Major rewrite needed
