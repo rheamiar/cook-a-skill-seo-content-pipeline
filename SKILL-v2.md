@@ -115,81 +115,75 @@ Identify 1 primary keyword + 5–10 secondary/LSI keywords, enriched with **real
 - 🐦 **X (Twitter)** — social buzz & discussion volume (via web search)
 - 🔵 **Ahrefs** — search volume & keyword difficulty (via Ahrefs API)
 
+Stage 1 runs in **2 turns** when in free mode. Do not compress into 1 turn.
+
 ---
 
-### Data Collection Process
+### Turn 1 — Collect candidates and ask for volume verification
 
 #### Step 1 — Generate seed keywords
-Before fetching data, brainstorm 8–12 candidate keywords based on the topic. Consider:
+Brainstorm 8–12 candidate keywords based on the topic:
 - Head terms (1–2 words)
 - Mid-tail (3–4 words)
 - Long-tail / question variants (5+ words, "how to...", "best...", "what is...")
 
 #### Step 2 — Fetch Google Trends data
-For each seed keyword, use **web search** with these queries:
-- `google trends [keyword] 2024 2025` → look for trend direction (rising / stable / declining)
-- `site:trends.google.com [keyword]` → check if any direct result available
-
-Extract from search results:
-- **Trend direction**: Rising 📈 / Stable ➡️ / Declining 📉
-- **Trending score**: estimate 0–100 based on search result context
-- **Seasonal pattern**: year-round vs. seasonal (note peak months if found)
+For each seed keyword, use web search:
+- `google trends [keyword] 2024 2025` → trend direction (rising / stable / declining)
+- Extract: trend direction, trending score 0–100, seasonal pattern
 
 #### Step 3 — Fetch X (Twitter) trending data
-For each seed keyword, use **web search** with:
-- `site:x.com [keyword]` OR `[keyword] trending twitter 2025`
-- `[keyword] discussion reddit OR twitter OR forum`
+For each seed keyword, use web search:
+- `site:x.com [keyword]` OR `[keyword] discussion reddit OR twitter OR forum`
+- Extract: buzz level (High/Medium/Low), discussion angle, notable debates
 
-Extract:
-- **Social buzz level**: High / Medium / Low
-- **Discussion angle**: what people are actually talking about (pain points, questions, debates)
-- **Notable hashtags** if any
+#### Step 4 — Fetch Ahrefs data
+**If user provided Ahrefs API key:** call the API and extract volume, KD, CPC → skip Turn 1 output below, proceed directly to Turn 2 scoring.
 
-#### Step 4 — Fetch Ahrefs data (API)
-> ⚠️ **Requires Ahrefs API key.** Ask the user: *"Could you provide your Ahrefs API key? It will only be used during this session."*
+**If user is in Level 1 (has Ahrefs account, no API key):** ask user to export CSV from Ahrefs Keywords Explorer and paste here → wait for data → proceed to Turn 2 scoring.
 
-> ⚠️ **If user is in free mode (no Ahrefs API, no Ahrefs account): after completing Steps 1–3, STOP immediately. Do NOT run scoring yet. Go to Step 5 first.**
+**If user is in Level 2 (no Ahrefs account):** after completing Steps 1–3, output Turn 1 result below and STOP.
 
-Use Ahrefs Keywords Explorer API endpoint:
+#### Turn 1 Output (Level 2 only) — output this, then stop
 
 ```
-GET https://api.ahrefs.com/v3/keywords-explorer/overview
-Headers: Authorization: Bearer {AHREFS_API_KEY}
-Params:
-  - keywords: [comma-separated list of seed keywords]
-  - country: vn  (or user's target market: us, sg, etc.)
-  - select: keyword,volume,keyword_difficulty,clicks,cpc
+KEYWORD CANDIDATES
+Topic: [topic] | Target market: [country]
+
+[list all candidate keywords with Trend and Buzz data only — no volume, no scores]
+
+┌─────────────────────────────────┬────────────┬──────────┐
+│ Keyword                         │ Trend      │ Buzz     │
+├─────────────────────────────────┼────────────┼──────────┤
+│ [keyword 1]                     │ Rising 📈  │ High     │
+│ [keyword 2]                     │ Stable ➡️  │ Medium   │
+│ ...                             │            │          │
+└─────────────────────────────────┴────────────┴──────────┘
+
+Before I score these, would you like to verify search volume and difficulty?
+You can check for free on:
+- Semrush: semrush.com/analytics/keywordoverview (10 searches/day)
+- Keywordtool.io: keywordtool.io
+
+Option A — paste volume + KD data here and I'll score with full formula
+Option B — reply "skip" and I'll score based on Trends + social buzz only
 ```
 
-Extract for each keyword:
-- **Monthly search volume** (exact number)
-- **Keyword Difficulty (KD)**: 0–100 → map to Low (0–29) / Medium (30–59) / Hard (60–100)
-- **CPC**: signals commercial intent
+→ STOP. Wait for user reply. Do not score, do not output final results.
 
-> 💡 If Ahrefs API is unavailable in this session, fall back to: ask user to paste raw data from Ahrefs UI, then parse it.
+---
 
-#### Step 5 — Verify volume data before scoring (Level 2 only)
+### Turn 2 — Score and output final results
 
-**If in free mode (no Ahrefs API and no Ahrefs account):** STOP here. Do NOT proceed to scoring yet.
+Run after user replies to Turn 1 (or immediately if Ahrefs data is available).
 
-Ask the user this question first:
-"I've identified [X] keyword candidates. Before I score them, would you like to verify search volume and difficulty? You can check on:
-- Semrush free: semrush.com/analytics/keywordoverview (10 free searches/day)
-- Keywordtool.io free: keywordtool.io
+#### Step 5 — Score & select keywords
 
-If yes, paste the volume and KD data here and I'll score properly.
-If you'd like to skip, I'll score based on Trends and social buzz only (no volume data)."
+- If Ahrefs data available → use full formula (Volume 35%, KD 30%, Trends 20%, Buzz 15%)
+- If user provided manual volume data → same formula
+- If user skipped → adjusted weights (KD 40%, Trends 35%, Buzz 25%), flag as [Free mode — volume unverified]
 
-→ STOP. Wait for explicit user reply. Do not score or output results yet.
-
-- If user provides data → proceed to Step 6 with full formula
-- If user skips → proceed to Step 6 with adjusted weights (KD 40%, Trends 35%, Social buzz 25%), flag as [Free mode — volume unverified]
-
-**If in Level 1 (has Ahrefs account, pasted CSV):** skip this step, proceed directly to Step 6.
-
-#### Step 6 — Score & select keywords
-
-Apply the weighted scoring formula to rank all candidate keywords. Pick top 1 as primary (target score 8+/10), next 5–8 as secondary.
+Pick top 1 as primary (target score 8+/10), next 5–8 as secondary.
 
 → See full formula and weight details: **`references/keyword-scoring.md`**
 
