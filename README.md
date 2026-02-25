@@ -3,6 +3,7 @@
 > A skill that runs a full end-to-end SEO + GEO content pipeline — from keyword research to publish-ready article with scoring report.
 
 ---
+
 cook-a-skill-seo-content-pipeline/
 ├── SKILL.md              (584 dòng — giảm từ 787)
 ├── README.md
@@ -12,6 +13,7 @@ cook-a-skill-seo-content-pipeline/
     ├── ai-pattern-library.md
     ├── scoring-rubric.md
     └── keyword-scoring.md
+
 ---
 
 ## The Problem This Solves
