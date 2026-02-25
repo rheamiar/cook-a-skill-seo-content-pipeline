@@ -26,17 +26,43 @@ Provide the list of seed keywords generated in Step 1. Parse the pasted CSV data
 
 ### Level 2 — No Ahrefs account (free mode)
 
-Use web search to estimate keyword data from free sources:
+In free mode, Claude cannot reliably obtain search volume or KD data. Do NOT estimate or generate volume numbers — this leads to hallucinated data.
 
-| Signal | Free source | How to extract |
+**What Claude can do in free mode:**
+
+Use web search to find keyword candidates only:
+
+| Goal | Source | How to use |
 |---|---|---|
-| Search volume estimate | Google Autocomplete | Search the keyword — more autocomplete variants = higher volume |
-| Search volume estimate | Ubersuggest free | Search ubersuggest.io — extract volume from snippet if visible |
-| Search volume + KD | Semrush Free Keyword Tool | semrush.com/analytics/keywordoverview — free tier shows volume, KD, CPC for 10 searches/day |
-| Keyword difficulty estimate | Google Search results | Count exact-match domains in top 10 — more = higher difficulty |
-| Long-tail discovery | Google People Also Ask | Extract all PAA questions as long-tail keyword candidates |
+| Long-tail discovery | Google People Also Ask | Search the keyword — extract all PAA questions as long-tail candidates |
 | Long-tail discovery | Google Related searches | Extract bottom-of-page related searches |
+| Keyword variants | Google Autocomplete | Search the keyword — note autocomplete suggestions as variant candidates |
 
-Label all free-source data as `[estimated]` in the output table.
-Flag the overall keyword research output as `[Free mode — estimates only]`.
-Recommend the user verify with Ahrefs before making publishing decisions.
+**What Claude cannot do in free mode:**
+- Estimate search volume — do not generate volume numbers without a real data source
+- Estimate keyword difficulty — do not score KD without tool data
+
+**After generating keyword candidates, ask the user:**
+
+Question 1: "I've identified [X] keyword candidates. Would you like to verify search volume and difficulty before I continue? I recommend checking on one of these free tools:
+- Ahrefs (Standard plan) — Keywords Explorer
+- Semrush free — semrush.com/analytics/keywordoverview (10 searches/day)
+- Keywordtool.io free — keywordtool.io
+
+If yes, paste the volume and KD data here and I'll score the keywords properly.
+If you'd like to skip verification and proceed without volume data, I'll score based on Trends and social buzz only (Volume weight will be excluded from scoring)."
+
+→ STOP. Wait for user reply.
+
+Question 2 (only if user wants to skip): "Understood — I'll proceed without volume data. Note that keyword scores will be based on Google Trends and social buzz signals only, and may not reflect actual search demand. Shall I continue?"
+
+→ STOP. Wait for explicit confirmation before proceeding.
+
+**If user provides manual volume data:** use it in the scoring formula normally.
+
+**If user skips verification:** remove Volume from scoring formula, redistribute weights as follows:
+- Keyword Difficulty (inverse): 40%
+- Google Trends score: 35%
+- X/Social buzz: 25%
+
+Flag output as `[Free mode — volume unverified, scores based on Trends + social buzz only]`.
