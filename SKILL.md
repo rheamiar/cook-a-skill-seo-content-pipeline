@@ -165,16 +165,10 @@ Extract for each keyword:
 > 💡 If Ahrefs API is unavailable in this session, fall back to: ask user to paste raw data from Ahrefs UI, then parse it.
 
 #### Step 5 — Score & select keywords
-Build a combined score for each keyword:
 
-| Signal | Weight | Scoring |
-|---|---|---|
-| Ahrefs Volume | 35% | log scale: <100=2, 100–1K=4, 1K–10K=7, 10K+=10 |
-| Keyword Difficulty (inverse) | 30% | KD 0–29=10, 30–59=6, 60–79=3, 80+=1 |
-| Google Trends score | 20% | Rising=9, Stable=6, Declining=2 |
-| X/Social buzz | 15% | High=9, Medium=5, Low=2 |
+Apply the weighted scoring formula to rank all candidate keywords. Pick top 1 as primary (target score 8+/10), next 5–8 as secondary.
 
-**Combined Score** = weighted average → rank all keywords → pick top 1 as primary, next 5–8 as secondary.
+→ See full formula, weight breakdown, and fallback modes: **`references/keyword-scoring.md`**
 
 ---
 
@@ -218,25 +212,9 @@ KEY INSIGHT FROM SOCIAL DATA:
 
 ### Fallback Mode
 
-**Level 1 — No API but has Ahrefs account:**
-Ask the user: *"Could you go to Ahrefs > Keywords Explorer > paste the following keywords > export CSV and paste the results here?"*
-Provide the list of seed keywords. Parse the pasted data and continue from Step 5 normally.
+Two fallback levels when Ahrefs API is unavailable.
 
-**Level 2 — No Ahrefs account at all (demo / free mode):**
-Use web search to estimate keyword data from free sources:
-
-| Signal | Free source | How to extract |
-|---|---|---|
-| Search volume estimate | Google Autocomplete | Search the keyword — note how many autocomplete variants appear; more variants = higher volume |
-| Search volume estimate | Ubersuggest free | Search `ubersuggest.io [keyword]` — extract volume from snippet if visible |
-| Search volume + KD | Semrush Free Keyword Tool | Go to `semrush.com/analytics/keywordoverview` — free tier shows volume, KD, and CPC for 10 searches/day |
-| Keyword difficulty estimate | Google Search results page | Search the keyword — count how many exact-match domains appear in top 10; more = higher difficulty |
-| Long-tail discovery | Google "People Also Ask" | Search the keyword — extract all PAA questions as long-tail keyword candidates |
-| Long-tail discovery | Google "Related searches" | Extract bottom-of-page related searches |
-
-Label all free-source data clearly as `[estimated]` in the output table. Note to the user that these are approximations and recommend verifying with Ahrefs before publishing decisions.
-
-Scoring in Step 5 still applies — use estimated values and flag the overall keyword research output as `[Free mode — estimates only]`.
+→ See full fallback instructions: **`references/keyword-scoring.md`**
 
 ---
 
@@ -566,73 +544,9 @@ Identify and eliminate writing patterns that signal AI generation. Replace with 
 
 ### Known AI-Pattern Library
 
-**Structural Red Flags**
-- Starting every section with "In today's [world/landscape/era]..."
-- Ending every section with a summary sentence that restates the heading
-- Perfect parallel structure across all bullet points (same length, same syntax)
-- Transitioning with "Furthermore," / "Moreover," / "Additionally," / "In conclusion,"
-- Using exactly 3 bullet points for every list
-- Using dashes anywhere in the article body: bullet dashes (`- item`), mid-sentence dashes (`X - Y`), or em dashes (`X — Y`) — all are AI formatting/writing signals; rewrite as separate sentences, use commas/colons, or use numbered lists instead
+Scan the draft against all patterns in the full library. Categories covered: structural red flags, phrase-level red flags, conclusion-specific patterns, rhythm issues, flow and transition issues, structural issues (H2/H3 consistency, FAQ placement, heading format, tool URLs, evidence gaps).
 
-**Phrase-Level Red Flags**
-Scan the draft and flag any of the following. Replace each flagged phrase with human alternatives:
-
-| AI Pattern | Human Alternative Examples |
-|---|---|
-| "It's important to note that..." | Just state the thing directly |
-| "In the realm of..." | "In [specific field]..." or just cut it |
-| "When it comes to..." | Cut it — start with the subject |
-| "Delve into" | "Explore," "look at," "break down" |
-| "Leverage" (used abstractly) | "Use," "apply," "take advantage of" |
-| "Navigate the complexities of..." | Be specific about what's complex |
-| "In today's fast-paced world..." | Cut entirely, start with real content |
-| "It goes without saying..." | If it goes without saying, don't say it |
-| "Comprehensive guide / deep dive" | Describe what you actually cover |
-| "Game-changer / revolutionary / transformative" | Describe the actual impact |
-| "Unlock the potential of..." | Say what the potential actually is |
-| "Empower [people] to..." | "Help [people] do [specific thing]" |
-| "As we explore in this article..." | Cut — don't narrate your own article |
-| "Suffice it to say..." | Cut |
-| "At the end of the day..." | Cut or replace with specific conclusion |
-| **"[X] represents a..."** | Rewrite: "[X] is..." or lead with the implication directly |
-| **"[X] represents the future of..."** | Say what will actually change, with specifics |
-| **"[X] represents a significant shift..."** | "Since [year], [X] has changed how [people do Y]" |
-| **And-chain: "A and B and C and D"** | Break into 2 sentences, or use a short list |
-| **"not only... but also..."** | Usually cut "not only" — just state both things |
-| **"both... and..." (overused connector)** | Restructure into separate clauses |
-
-**Conclusion-Specific Red Flags**
-Conclusions are where AI patterns cluster most heavily. Scan the conclusion separately for:
-
-| AI Conclusion Pattern | Fix |
-|---|---|
-| Starts with "In conclusion," / "To summarize," / "In summary," | Cut the opener — start with the actual takeaway |
-| Restates every H2 heading as bullet points | Replace with 1–2 sentences of synthesis, not recap |
-| Ends with "we hope this article has helped you..." | Cut entirely — end with action or insight |
-| "[Topic] represents an exciting opportunity..." | Say what the reader should do with that opportunity |
-| Vague closing: "The future of [X] is bright" | Replace with a specific prediction or concrete next step |
-| Motivational fluff: "Now is the time to embrace [X]" | Give a specific first action to take |
-
-**Rhythm Red Flags**
-- Sentences that are all approximately the same length → vary them
-- Every paragraph has exactly the same number of sentences → break the pattern
-- No contractions anywhere → add contractions where natural (you're, it's, that's)
-- No rhetorical questions → add 1–2 where appropriate
-- No personal/direct asides → add occasional "Here's the thing:" or "Think about it this way:"
-
-**Flow & Transition Red Flags**
-- Two or more consecutive paragraphs that start with the same word or structure → rewrite openers
-- Paragraphs that end abruptly with no bridge to the next → add a 1-sentence transition
-- H2 sections that feel like separate articles with no connection to each other → add closing transition sentences
-- Body reads like a list of facts rather than a narrative → add causal connectors ("because", "which means", "the result is")
-- Zero transition phrases in the entire article → flag and add at least 5
-
-**Structural Red Flags (additional)**
-- Content written as floating paragraphs between an H2 and its H3 subsections → move all content inside the H3s
-- FAQ section placed before the conclusion → move FAQ to after conclusion
-- Headings that use `— ` or ` - ` as a separator between keyword and subtitle → rewrite as single natural sentence or use `:` sparingly
-- Tool or project name mentioned without official URL on first mention → add URL in parentheses
-- H3 section makes a claim with no example, data, or link → flag as "evidence needed"
+→ See full pattern library with tables and fix instructions: **`references/ai-pattern-library.md`**
 
 ### Humanization Instructions
 1. Read through the draft and highlight every AI pattern found.
@@ -648,95 +562,9 @@ After completing all stages, produce a structured evaluation of the final articl
 
 ### Output Format
 
-```
-╔══════════════════════════════════════════════╗
-║         SEO CONTENT EVALUATION REPORT        ║
-╚══════════════════════════════════════════════╝
+Grade across 6 dimensions (10 points each, 60 total): SEO Optimization, Human-Style Writing, Content Quality, Content Flow, Keyword Distribution, GEO Optimization. Output includes overall score, letter grade (A/B/C/D), strengths, priority fixes, and quick wins.
 
-ARTICLE: [Title]
-KEYWORD: [Primary keyword]
-WORD COUNT: [X words]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SCORES (each out of 10)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-1. SEO OPTIMIZATION          [X/10]
-   - Keyword placement:      [✓/✗ notes]
-   - Title & meta:           [✓/✗ notes]  
-   - Structure (H tags):     [✓/✗ notes]
-   - Keyword density:        [X% — target 1–1.5%]
-   - Internal/external links:[✓/✗ notes]
-
-2. HUMAN-STYLE WRITING       [X/10]
-   - AI patterns detected:   [count] — [list them]
-   - Sentence variety:       [Good/Needs work]
-   - Tone naturalness:       [Good/Needs work]
-   - Contractions used:      [Yes/No]
-   - Personal voice present: [Yes/No]
-
-3. CONTENT QUALITY           [X/10]
-   - Accuracy & depth:       [notes]
-   - Unique angle/insight:   [notes]
-   - Examples & specifics:   [notes]
-   - E-E-A-T signals:        [notes]
-
-4. CONTENT FLOW              [X/10]
-   - Intro hook strength:      [Strong/Weak — notes]
-   - Logical progression:      [notes]
-   - Paragraph transitions:    [count transitions present vs. needed]
-   - Section transitions:      [Smooth/Choppy — closing sentence present at each H2?]
-   - Conclusion clarity:       [notes]
-   - FAQ placement:            [✓ after conclusion / ✗ misplaced]
-   - H2/H3 structure:          [✓ consistent / ✗ floating content between H2 and H3]
-   - Prose vs bullet balance:  [bullet count: X — appropriate/overused]
-   - Citation format:          [✓ using "according to" / ✗ using dash format]
-   - Evidence per H3:          [X/X sections have concrete example or data]
-   - Tool URLs present:        [✓/✗ — first-mention URLs added for all tools]
-   - Heading length compliance:[H1: X chars ✓/✗ | H2s within 70 chars: X/X]
-   - Heading dash-free:        [✓ clean / ✗ X headings still use dash separators]
-
-5. KEYWORD DISTRIBUTION      [X/10]
-   - Primary keyword:        [appears X times — distribution: even/front-loaded/sparse]
-   - Secondary keywords:     [coverage: X/X keywords used]
-   - LSI/semantic coverage:  [Good/Needs more variety]
-   - Over-optimization risk: [Low/Medium/High]
-
-6. GEO OPTIMIZATION          [X/10]
-   - Direct answers present: [✓/✗ — AI can extract clean answers]
-   - Key definitions clear:  [✓/✗ notes]
-   - Authority signals:      [data points cited: X/3 minimum]
-   - Heading clarity:        [Good/Needs work — headings as topic labels]
-   - Entity coverage:        [Good/Needs work]
-   - AI-extractable summary: [✓/✗ — TL;DR or clear conclusion present]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-OVERALL SCORE: [X/60]  →  [X%]
-GRADE: [A / B / C / D]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-GRADE SCALE:
-A (90–100%): Publish-ready — optimized for both search engines and AI engines
-B (75–89%):  Minor revisions recommended
-C (60–74%):  Significant improvements needed
-D (<60%):    Major rewrite needed
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SUMMARY ASSESSMENT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-STRENGTHS:
-- [Point 1]
-- [Point 2]
-
-WEAKNESSES / PRIORITY FIXES:
-- [Issue 1 — what to fix and how]
-- [Issue 2 — what to fix and how]
-
-QUICK WINS (fixes that take <5 min):
-- [Action item]
-- [Action item]
-```
+→ See full scoring rubric with all sub-criteria and output template: **`references/scoring-rubric.md`**
 
 ---
 
@@ -749,39 +577,8 @@ QUICK WINS (fixes that take <5 min):
 
 ---
 
-## Quick Reference — AI Phrases to Always Avoid
+## Quick Reference
 
-```
-GENERIC OPENERS & FILLERS:
-"Delve into" / "In the realm of" / "Navigate the complexities"
-"It's important to note" / "It goes without saying"
-"In today's fast-paced world" / "In today's digital landscape"
-"When it comes to..." / "As we explore in this article"
-"At the end of the day" / "Suffice it to say"
-
-INFLATED ADJECTIVES:
-"Leverage" (abstract) / "Empower" / "Unlock the potential"
-"Game-changer" / "Revolutionary" / "Transformative" / "Comprehensive"
-
-CLUNKY TRANSITIONS:
-"Furthermore" / "Moreover" / "Additionally" / "In conclusion,"
-"Not only... but also..." / "Both... and..." (overused)
-
-REPRESENTS PATTERN (conclusion red flag):
-"[X] represents a..." → rewrite as "[X] is..."
-"[X] represents the future of..." → state the specific change
-"[X] represents a significant shift..." → "Since [year], [X] has changed how..."
-
-AND-CHAINS (structural red flag):
-"A and B and C and D" → break into 2 sentences or a list
-
-DASHES — ALL FORMS (formatting + writing red flag):
-"- item" bullet lists → replace with numbered lists or prose
-"X - Y" or "X — Y" mid-sentence dashes → rewrite as 2 sentences or use a comma/colon
-
-CONCLUSION KILLERS:
-"In conclusion," / "To summarize," / "In summary,"
-"We hope this article has helped you..."
-"The future of [X] is bright"
-"Now is the time to embrace [X]"
-```
+→ Full AI pattern library with fix instructions: **`references/ai-pattern-library.md`**
+→ Full scoring rubric with all sub-criteria: **`references/scoring-rubric.md`**
+→ Keyword scoring formula and fallback modes: **`references/keyword-scoring.md`**
