@@ -49,6 +49,8 @@ The article body must contain zero dash characters used as connectors or separat
 To fix: rewrite as two separate sentences, use a comma, use a colon, or restructure the clause entirely.
 The ONLY acceptable use of a hyphen is inside a compound word (e.g. "well-known", "long-term", "on-chain") — not as a sentence connector.
 
+**Mandatory scan before outputting draft:** Before showing any draft to the user, search the entire article body for every occurrence of ` — ` and ` - ` (with spaces around them). If any are found outside compound words, rewrite those sentences immediately. Do not output the draft until zero violations remain.
+
 **RULE 2 — WORD COUNT HARD CAP**
 Article body must be 1,200–1,700 words. Do not exceed 1,700 under any circumstance.
 
@@ -381,6 +383,8 @@ Unplaced keywords:  [list any not yet mapped → decide: add section or cut]
 
 ## Stage 3 — Draft Writing
 
+### Stage 3a — Write the Draft
+
 ### Goal
 Write the full article following the outline, in a natural, human, authoritative tone.
 
@@ -434,7 +438,7 @@ Sections that only contain assertions without evidence will be flagged in Stage 
 - Vary sentence length: mix short punchy sentences with longer explanatory ones.
 - Use concrete examples, analogies, and specific numbers where possible.
 - Avoid hedging phrases and filler words (see Stage 5 for full AI-pattern list).
-- **Never use dashes anywhere in the article body** — this includes bullet dashes (`- item`), mid-sentence dashes (`X - Y`), and em dashes (`X — Y`). All are strong AI writing signals. Use numbered lists, short paragraphs, or inline enumeration ("first... second... third...") for lists. For connective dashes in sentences, rewrite as two separate sentences or use a comma/colon instead.
+- **No dashes in article body** — See Hard Rules, Rule 1 for full detail and fix instructions.
 
 **Data, Statistics & Source Requirements**
 
@@ -466,6 +470,35 @@ Rules for data usage:
 - Primary keyword: appears in first 100 words, in at least one H2, and in conclusion.
 - Secondary keywords: woven in naturally — never forced.
 - Keyword density: aim for 1–1.5% for primary keyword. Never stuff.
+
+---
+
+### Stage 3b — Mandatory Self-Review (before outputting draft)
+
+After completing the draft, run this self-review checklist silently before showing anything to the user. Fix all violations first.
+
+**Dash scan (Rule 1):**
+- Search for every ` — ` and ` - ` in the article body
+- For each found: is it inside a compound word (well-known, on-chain)? If not → rewrite the sentence
+- Zero violations allowed before proceeding
+
+**Word count check (Rule 2):**
+- Count words in article body
+- If under 1,200 → expand examples and evidence in existing sections
+- If over 1,700 → tighten paragraphs, cut redundant examples
+- Do not output until within range
+
+**Citation format check:**
+- Search for any `— [Source]` or `- [Source]` at end of sentences → rewrite as `according to [Source]`
+
+**Flow check:**
+- Does every H2 section end with a transition sentence? If not → add one
+- Do any two consecutive paragraphs start with the same word? If yes → rewrite one opener
+
+**Evidence check:**
+- Does every H3 section have at least one concrete example, data point, or link? If not → flag as [EVIDENCE NEEDED: add example here]
+
+Only after all checks pass → output the draft to the user.
 
 ---
 
@@ -589,3 +622,6 @@ Grade across 6 dimensions (10 points each, 60 total): SEO Optimization, Human-St
 
 → Keyword scoring formula and fallback modes:
 **`references/keyword-scoring.md`**
+
+→ Logical flow patterns and outline output template:
+**`references/outline-guide.md`**
