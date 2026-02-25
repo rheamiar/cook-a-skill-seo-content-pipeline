@@ -166,11 +166,30 @@ Extract for each keyword:
 
 > 💡 If Ahrefs API is unavailable in this session, fall back to: ask user to paste raw data from Ahrefs UI, then parse it.
 
-#### Step 5 — Score & select keywords
+#### Step 5 — Verify volume data before scoring (Level 2 only)
+
+**If in free mode (no Ahrefs API and no Ahrefs account):** STOP here. Do NOT proceed to scoring yet.
+
+Ask the user this question first:
+"I've identified [X] keyword candidates. Before I score them, would you like to verify search volume and difficulty? You can check on:
+- Semrush free: semrush.com/analytics/keywordoverview (10 free searches/day)
+- Keywordtool.io free: keywordtool.io
+
+If yes, paste the volume and KD data here and I'll score properly.
+If you'd like to skip, I'll score based on Trends and social buzz only (no volume data)."
+
+→ STOP. Wait for explicit user reply. Do not score or output results yet.
+
+- If user provides data → proceed to Step 6 with full formula
+- If user skips → proceed to Step 6 with adjusted weights (KD 40%, Trends 35%, Social buzz 25%), flag as [Free mode — volume unverified]
+
+**If in Level 1 (has Ahrefs account, pasted CSV):** skip this step, proceed directly to Step 6.
+
+#### Step 6 — Score & select keywords
 
 Apply the weighted scoring formula to rank all candidate keywords. Pick top 1 as primary (target score 8+/10), next 5–8 as secondary.
 
-→ See full formula, weight breakdown, and fallback modes: **`references/keyword-scoring.md`**
+→ See full formula and weight details: **`references/keyword-scoring.md`**
 
 ---
 
@@ -218,7 +237,7 @@ Two fallback levels when Ahrefs API is unavailable.
 
 **Important:** In free mode (Level 2), Claude must NOT estimate or generate volume numbers. Free mode is for finding keyword candidates only — volume data must come from the user or be explicitly skipped.
 
-→ See full fallback instructions and volume verification flow: **`references/keyword-scoring.md`**
+→ See full formula and weight details: **`references/keyword-scoring.md`**
 
 ---
 
