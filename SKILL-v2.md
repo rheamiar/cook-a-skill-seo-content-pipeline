@@ -396,6 +396,22 @@ Unplaced keywords:  [list any not yet mapped → decide: add section or cut]
 
 ---
 
+### ✋ Content Brief Approval — STOP before Stage 3
+
+After outputting the outline above, STOP. Do not proceed to Stage 3 until the user explicitly approves.
+
+Ask the user:
+"Here's your content brief and outline. Before I start writing, please review:
+- Does the outline structure look right?
+- Any sections to add, remove, or reorder?
+- Any angle or tone adjustments?
+
+Reply 'approved' or share your edits and I'll update the outline before writing."
+
+→ STOP. Wait for explicit approval or edits. Do not start writing the draft until user confirms.
+
+---
+
 ## Stage 3 — Draft Writing
 
 ### Stage 3a — Write the Draft
@@ -615,6 +631,15 @@ After completing all stages, produce a structured evaluation of the final articl
 Grade across 6 dimensions (10 points each, 60 total): SEO Optimization, Human-Style Writing, Content Quality, Content Flow, Keyword Distribution, GEO Optimization. Output includes overall score, letter grade (A/B/C/D), strengths, priority fixes, and quick wins.
 
 → See full scoring rubric with all sub-criteria and output template: **`references/scoring-rubric.md`**
+
+### ✋ Output Format — ask after scoring report
+
+After delivering the scoring report, ask the user:
+"Would you like me to export the full article as a file?
+- Option A — plain text in chat (default, already done)
+- Option B — export as .docx file"
+
+→ STOP. Wait for user reply. Only create a file if user explicitly chooses Option B.
 
 ---
 
