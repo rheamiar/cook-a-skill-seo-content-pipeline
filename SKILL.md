@@ -214,7 +214,9 @@ KEY INSIGHT FROM SOCIAL DATA:
 
 Two fallback levels when Ahrefs API is unavailable.
 
-→ See full fallback instructions: **`references/keyword-scoring.md`**
+**Important:** In free mode (Level 2), Claude must NOT estimate or generate volume numbers. Free mode is for finding keyword candidates only — volume data must come from the user or be explicitly skipped.
+
+→ See full fallback instructions and volume verification flow: **`references/keyword-scoring.md`**
 
 ---
 
