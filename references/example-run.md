@@ -12,7 +12,7 @@ Input and output are real — generated during a live test run on February 25, 2
 | **Topic** | AI in the crypto industry |
 | **Target market** | US |
 | **Ahrefs API key** | Not available (free mode) |
-| **Spec file** | [spec-ai-crypto.md](../spec-ai-crypto.md) |
+| **Spec file** | [spec-ai-crypto.md](../references/spec-ai-crypto.md) |
 
 **Key details from spec:**
 
