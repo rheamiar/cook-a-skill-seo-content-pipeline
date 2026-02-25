@@ -45,7 +45,6 @@ Use web search to find keyword candidates only:
 **After generating keyword candidates, ask the user:**
 
 Question 1: "I've identified [X] keyword candidates. Would you like to verify search volume and difficulty before I continue? I recommend checking on one of these free tools:
-- Ahrefs (Standard plan) — Keywords Explorer
 - Semrush free — semrush.com/analytics/keywordoverview (10 searches/day)
 - Keywordtool.io free — keywordtool.io
 
