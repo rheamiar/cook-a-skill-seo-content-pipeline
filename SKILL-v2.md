@@ -148,6 +148,8 @@ Extract:
 #### Step 4 — Fetch Ahrefs data (API)
 > ⚠️ **Requires Ahrefs API key.** Ask the user: *"Could you provide your Ahrefs API key? It will only be used during this session."*
 
+> ⚠️ **If user is in free mode (no Ahrefs API, no Ahrefs account): after completing Steps 1–3, STOP immediately. Do NOT run scoring yet. Go to Step 5 first.**
+
 Use Ahrefs Keywords Explorer API endpoint:
 
 ```
