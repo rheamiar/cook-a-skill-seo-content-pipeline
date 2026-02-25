@@ -88,6 +88,7 @@ Claude (claude.ai Projects) · Ahrefs API · Semrush Free Keyword Tool · Google
 - Connect to Google Search Console for real ranking data as input
 - Multiple entry points: optimize existing draft (Stage 4→5→6) or full rewrite from draft (Stage 2→3→4→5→6)
 - CMS integration (WordPress/Ghost) to publish directly from output
+- Native Ahrefs API integration via Claude Code or Dify — pulls live volume and KD data without manual copy-paste
 
 ---
 
