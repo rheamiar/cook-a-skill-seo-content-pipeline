@@ -32,10 +32,10 @@ The root cause is not effort — it is process. Keyword research, outlining, dra
 | Ahrefs API key | Optional | Enables live keyword data. Without it, skill uses free tools and labels data as [estimated] |
 
 **Example input:**
-Topic: AI in crypto trading
-Target market: US
-Spec file: [paste contents of spec file]
-Ahrefs API key: [key]
+- Topic: AI in crypto trading
+- Target market: US
+- Spec file: [paste contents of spec file]
+- Ahrefs API key: [key]
 
 ---
 
@@ -94,6 +94,7 @@ A full pipeline report delivered as plain text in chat (no file unless requested
 | Situation | Skill behavior |
 |---|---|
 | No spec file provided | Ask user. If confirmed none, proceed with topic only and note output will be generic |
+| Claude outputs em dashes or hyphens in article | This is an LLM limitation — Claude may slip despite instructions. Manual review before publishing is recommended. |
 | No Ahrefs API key | Offer Level 1 (paste CSV from Ahrefs UI) or Level 2 (free tools: Google PAA, Semrush free, Ubersuggest) |
 | User only wants one stage | Skip irrelevant input questions, run only the requested stage |
 | Article runs over 1,700 words | Tighten paragraphs and cut redundant examples — do not remove entire sections |
