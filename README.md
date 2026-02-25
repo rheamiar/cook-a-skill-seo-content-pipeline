@@ -76,6 +76,7 @@ Claude (claude.ai Projects) · Ahrefs API · Semrush Free Keyword Tool · Google
 - Ahrefs API required for accurate volume and KD data — free mode uses estimates only
 - Social data from X/Twitter is estimated via web search, not live API
 - Skill does not auto-publish or connect to CMS
+- Claude may occasionally use em dashes or hyphens in article output despite instructions — manual review recommended before publishing
 - Best results on informational and commercial investigation content — not optimized for product pages or landing pages
 
 ---
