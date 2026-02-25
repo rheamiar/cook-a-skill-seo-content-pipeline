@@ -4,18 +4,6 @@
 
 ---
 
-cook-a-skill-seo-content-pipeline/
-├── SKILL.md              (584 dòng — giảm từ 787)
-├── README.md
-├── spec.md
-├── skill-card.md
-└── references/
-    ├── ai-pattern-library.md
-    ├── scoring-rubric.md
-    └── keyword-scoring.md
-
----
-
 ## The Problem This Solves
 
 Writing SEO content manually is slow, inconsistent, and easy to get wrong. Most writers either over-optimize (keyword stuffing, robotic tone) or under-optimize (great writing, zero rankings). This skill closes that gap by running a structured, repeatable pipeline that handles both sides: content that ranks and content that reads like a human wrote it.
@@ -60,6 +48,23 @@ Runs 6 stages in sequence, each building on the previous:
 
 ---
 
+## Repo Structure
+
+```
+cook-a-skill-seo-content-pipeline/
+├── SKILL.md                          # Main skill — 6-stage pipeline instructions
+├── README.md                         # This file
+├── spec.md                           # Problem, user, input/output, workflow, edge cases
+├── skill-card.md                     # 1-page skill summary for submission
+├── ai-showcase/                      # Screenshots and conversation examples
+└── references/
+    ├── ai-pattern-library.md         # Full AI pattern detection tables + fix instructions
+    ├── scoring-rubric.md             # Stage 6 scoring template (6 dimensions, 60 points)
+    └── keyword-scoring.md            # Keyword scoring formula + Ahrefs fallback modes
+```
+
+---
+
 ## Tools Used
 
 Claude (claude.ai Projects) · Ahrefs API · Semrush Free Keyword Tool · Google Trends · X/Twitter web search
@@ -72,6 +77,15 @@ Claude (claude.ai Projects) · Ahrefs API · Semrush Free Keyword Tool · Google
 - Social data from X/Twitter is estimated via web search, not live API
 - Skill does not auto-publish or connect to CMS
 - Best results on informational and commercial investigation content — not optimized for product pages or landing pages
+
+---
+
+## Roadmap
+
+- Add competitor content gap analysis (Stage 1.5)
+- Add Vietnamese language support with VN-specific SEO rules
+- Add automatic internal linking suggestions based on existing content library
+- Connect to Google Search Console for real ranking data as input
 
 ---
 
