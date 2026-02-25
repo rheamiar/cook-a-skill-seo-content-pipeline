@@ -662,6 +662,3 @@ After delivering the scoring report, ask the user:
 
 → Keyword scoring formula and fallback modes:
 **`references/keyword-scoring.md`**
-
-→ Logical flow patterns and outline output template:
-**`references/outline-guide.md`**
