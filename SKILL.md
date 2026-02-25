@@ -579,6 +579,11 @@ Grade across 6 dimensions (10 points each, 60 total): SEO Optimization, Human-St
 
 ## Quick Reference
 
-→ Full AI pattern library with fix instructions: **`references/ai-pattern-library.md`**
-→ Full scoring rubric with all sub-criteria: **`references/scoring-rubric.md`**
-→ Keyword scoring formula and fallback modes: **`references/keyword-scoring.md`**
+→ Full AI pattern library with fix instructions:
+**`references/ai-pattern-library.md`**
+
+→ Full scoring rubric with all sub-criteria:
+**`references/scoring-rubric.md`**
+
+→ Keyword scoring formula and fallback modes:
+**`references/keyword-scoring.md`**
