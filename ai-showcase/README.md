@@ -8,8 +8,7 @@ This folder documents key moments from building the SEO Content Pipeline skill a
 
 **File:** `01-initial-brainstorm.png`
 
-**What to capture:** The very first prompt of the conversation (Day 1) where you defined the entire skill scope from scratch:
-> *"Tôi cần làm skill SEO content pipeline... từ tự research keyword, lên outline, viết bài, tối ưu SEO theo checklist và đồng thời tự nhận diện được các văn phong, mẫu câu & cách dùng từ mà AI hay dùng để tránh những cái đó... sau đó output thì phải kèm khả năng chấm điểm SEO và đánh giá chung..."*
+**What to capture:** The very first prompt of the conversation (Day 1) where you defined the entire skill scope from scratch.
 
 **Why it matters:** In a single prompt, you defined all 4 core components that became the final skill: keyword research, outline, AI-pattern detection, and scoring report. The pipeline structure that exists today — 6 stages from research to scoring — maps directly to this first message. Nothing was added by accident; the scope was set by you from the start.
 
