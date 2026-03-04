@@ -70,7 +70,7 @@ Collect inputs conversationally — ask ONE question at a time, wait for the ans
 
 Question sequence — strict one-at-a-time, always wait for user reply before proceeding:
 
-1. First ask: "Do you have a product spec file (.md) you'd like me to reference? If yes, paste the contents here. If not, just share the topic and I'll proceed."
+1. First ask: "Do you have a product spec file (.md) you'd like me to reference? If yes, paste the contents here. A good spec should include: topic/product description, target audience, content goal, editorial thesis, tone guidelines, and **content type** (News 800–1,000 words / Opinion & Analysis 1,000–1,300 words / Long-form Guide & Explainer 1,200–1,700 words). If you don't have a spec, just share the topic and content type and I'll proceed."
    → STOP. Wait for the user's reply. Do not ask the next question yet.
 
 2. After receiving answer to question 1, ask: "What is your target market or country? (e.g. Vietnam, US, Singapore — this affects keyword research)"
@@ -97,6 +97,10 @@ The spec .md should contain (ask the user if missing):
 - Target user and their pain points
 - Key use cases and differentiators
 - Tone of voice or brand guidelines (if any)
+- **Content type** — determines word count target:
+  - News / Announcement: 800–1,000 words
+  - Opinion / Analysis: 1,000–1,300 words
+  - Long-form Guide / Explainer: 1,200–1,700 words (default if not specified)
 
 **If a spec .md is provided:** extract the above information before running Stage 1. Reference it throughout all stages to keep output product-specific.
 
@@ -302,7 +306,7 @@ Assemble the final outline using the flow pattern from Step 1, keyword map from 
 
 **Rules:**
 - H1: contains primary keyword, maximum 60 characters — no dashes, no "keyword — subtitle" format; write as a single natural sentence
-- Each H2: maximum 70 characters — long-tail keywords should be rewritten as a single natural sentence or flowing phrase in the heading (e.g. "How AI Is Used in Crypto Trading" not "AI crypto trading — how it works"); only fall back to placing the keyword in body text if it truly cannot read naturally as a heading — this should be rare; never use the format "keyword — subtitle" or "keyword - subtitle"
+- Each H2: maximum 70 characters — long-tail keywords should be rewritten as a single natural sentence or flowing phrase in the heading (e.g. "How AI Is Used in Crypto Trading" not "AI crypto trading — how it works"); only fall back to placing the keyword in body text if it truly cannot read naturally as a heading — this should be rare; never use the format "keyword — subtitle" or "keyword - subtitle"; if the heading is a question, always use natural interrogative word order — "What Are Prediction Markets?" not "What Prediction Markets Are?", "How Do Prediction Markets Work?" not "How Prediction Markets Work?" — structure: question word + auxiliary verb + subject
 - Each H3: either a long-tail keyword heading, a social reaction expansion, or a concrete sub-point
 - H2/H3 consistency: if an H2 section has H3 subsections, do NOT write standalone body content directly under the H2 before the H3s — move all content into the H3s instead; each H2 should serve as a container label, not a content block
 - Section order: Body sections → Conclusion → FAQ (FAQ is always the final section before the end of the article, never before the conclusion)
@@ -427,7 +431,7 @@ Write the full article following the outline, in a natural, human, authoritative
 - H2/H3 consistency: if a section has H3 subsections, all body content must live inside those H3s — do not write floating paragraphs between the H2 heading and the first H3.
 - FAQ placement: FAQ is always the last section of the article body, placed after the conclusion, never before it.
 - Conclusion: Summarize key points, give a clear takeaway, include a CTA or next step.
-- Word count: target 1,200–1,700 words. This is a hard cap — do not exceed 1,700 words. If running long, tighten paragraphs and cut redundant examples; do not remove entire sections. If running short, expand examples and evidence rather than adding new sections.
+- Word count: follow the content type specified in the spec — News 800–1,000 words / Opinion & Analysis 1,000–1,300 words / Long-form Guide & Explainer 1,200–1,700 words. Default to Long-form if not specified. This is a hard cap — do not exceed the upper limit. If running long, tighten paragraphs and cut redundant examples; do not remove entire sections. If running short, expand examples and evidence rather than adding new sections.
 
 **Transitions & Flow**
 Every paragraph must connect to the next. Use transitional phrases and sentence bridges to avoid the "list of facts" feeling:
@@ -506,125 +510,75 @@ Rules for data usage:
 
 ### Stage 3b — Mandatory Self-Review (before outputting draft)
 
-After completing the draft, run this self-review checklist silently before showing anything to the user. Fix all violations first.
+After completing the draft, run this entire checklist silently. Fix all violations before showing anything to the user. Output only one draft — the final clean version after all checks pass.
 
-**Dash scan (Rule 1):**
+---
+
+**1. Dash scan (Hard Rule 1):**
 - Search for every ` — ` and ` - ` in the article body
 - For each found: is it inside a compound word (well-known, on-chain)? If not → rewrite the sentence
 - Zero violations allowed before proceeding
 
-**Word count check (Rule 2):**
-- Count words in article body
-- If under 1,200 → expand examples and evidence in existing sections
-- If over 1,700 → tighten paragraphs, cut redundant examples
-- Do not output until within range
+**2. Word count check (Hard Rule 2):**
+- Check word count against content type target from spec (News: 800–1,000 / Opinion: 1,000–1,300 / Long-form: 1,200–1,700)
+- If under minimum → expand examples and evidence in existing sections
+- If over maximum → tighten paragraphs, cut redundant examples
 
-**Citation format check:**
+**3. Citation format check:**
 - Search for any `— [Source]` or `- [Source]` at end of sentences → rewrite as `according to [Source]`
 
-**Flow check:**
+**4. Flow check:**
 - Does every H2 section end with a transition sentence? If not → add one
 - Do any two consecutive paragraphs start with the same word? If yes → rewrite one opener
 
-**Evidence check:**
-- Does every H3 section have at least one concrete example, data point, or link? If not → flag as [EVIDENCE NEEDED: add example here]
-
-Only after all checks pass → output the draft to the user.
+**5. Evidence check:**
+- Does every H3 section have at least one concrete example, data point, or link? If not → flag as `[EVIDENCE NEEDED: add example here]`
 
 ---
 
-## Stage 4 — SEO + GEO Optimization Checklist
+**6. SEO check:**
+- [ ] Primary keyword in first 100 words, at least one H2, and conclusion
+- [ ] Primary keyword density: 1–1.5% — not stuffed, not sparse
+- [ ] At least 2–3 long-tail variants used naturally
+- [ ] H1 max 60 chars, H2 max 70 chars, H3 max 65 chars
+- [ ] Paragraphs max 3–4 lines — no walls of text
+- [ ] At least 2 internal link placeholders noted
+- [ ] At least 1–2 external authoritative sources noted
+- [ ] FAQ section present → targets FAQ schema
+- [ ] At least 3 data points with named sources
 
-After drafting, run through this checklist and fix any gaps.
-
----
-
-### **SEO — Search Engine Optimization**
-Optimize for Google and traditional search engines to rank the article.
-
-#### Title & Meta
-- [ ] Title tag: 50–60 characters, contains primary keyword near the front
-- [ ] Meta description: 150–160 characters, contains primary keyword, has a hook/CTA
-- [ ] URL slug: short, lowercase, hyphenated, contains primary keyword
-
-#### Content Structure
-- [ ] H1 contains primary keyword (only one H1 in the article)
-- [ ] H2s use secondary keywords or question variants
-- [ ] Intro paragraph contains primary keyword within first 100 words
-- [ ] Conclusion contains primary keyword
-- [ ] Word count: within 1,200–1,700 words (hard cap — flag if over)
-
-#### Keyword Usage
-- [ ] Primary keyword density: 1–1.5%
-- [ ] No keyword stuffing (same phrase repeated unnaturally)
-- [ ] LSI/semantic keywords present throughout
-- [ ] At least 2–3 long-tail variants used
-
-#### Readability
-- [ ] Paragraphs: max 3–4 lines each
-- [ ] Flesch Reading Ease: aim for 60+ (readable by general audience)
-- [ ] Bullet points / numbered lists used where appropriate
-- [ ] No walls of text
-
-#### Internal & External Signals
-- [ ] At least 2 internal link suggestions noted (placeholders if URLs unknown)
-- [ ] At least 1–2 authoritative external source suggestions noted
-- [ ] Image alt text recommendations included (if images are mentioned)
-
-#### Schema / Snippet Opportunities
-- [ ] FAQ section present (if relevant) → targets FAQ schema
-- [ ] How-to steps present (if relevant) → targets HowTo schema
-- [ ] Statistics or data points included (increases E-E-A-T signals)
+**7. GEO check:**
+- [ ] Every major question answered directly and explicitly in 1–2 sentences
+- [ ] Key definitions stated clearly — not buried across paragraphs
+- [ ] Article takes a clear stance — no vague "it depends" conclusions
+- [ ] H2/H3 headings are clear topic labels, not clever/vague titles
+- [ ] TL;DR or clear summary present in intro or conclusion
+- [ ] Key entities (tools, brands, concepts) named explicitly with URLs on first mention
 
 ---
 
-### **GEO — Generative Engine Optimization**
-Optimize for AI engines (ChatGPT, Perplexity, Google AI Overview) to cite this article as a source.
+**8. AI-pattern scan:**
 
-**Directness & extractability**
-- [ ] Every major question in the article is answered directly and explicitly — AI engines extract clean, self-contained answers
-- [ ] Key definitions are stated clearly in 1–2 sentences (not buried across paragraphs)
-- [ ] Each H2 section can stand alone and make sense without reading the rest of the article
+Scan the full draft against the pattern library → **`references/ai-pattern-library.md`**
 
-**Authority signals**
-- [ ] At least 3 data points with named sources — AI engines strongly prefer citing articles with verifiable evidence
-- [ ] Author expertise signals present: specific experience, credentials, or firsthand knowledge mentioned
-- [ ] Article takes a clear stance or conclusion — vague "it depends" articles are rarely cited by AI
+Then run burstiness check:
+- Sentence length: if 3+ consecutive sentences are similar length (all 15-20 words or all 8-12 words) → insert a very short sentence (3-6 words) or a very long one (30+ words) to break the pattern
+- Fragment intentional: add 2-3 deliberate short fragments at paragraph openers or after a strong point — "That's the problem." / "Not quite." / "Here's why."
+- Sentence starters: if 3+ sentences start with the same word (The / This / It / AI) → rewrite at least one opener; occasionally start with "And", "But", "So"
+- Numbers: replace round numbers with specific ones where source allows — "around 30%" → "27%" — specific numbers read as more credible and less AI
+- Lexical unpredictability: in each H2 section, replace at least one predictable word choice with a less obvious alternative — "important" → "worth noting", "shows" → "points to", "many people" → "a lot of traders"
 
-**Structure for AI parsing**
-- [ ] H2/H3 headings are written as clear topic labels, not clever/vague titles — AI uses headings to understand what each section is about
-- [ ] Summary or TL;DR either in intro or conclusion — gives AI a clean snippet to cite
-- [ ] No fluff paragraphs that don't add information — AI engines skip low-signal content
-
-**Entity & topic coverage**
-- [ ] Key entities (people, tools, brands, concepts) are named explicitly, not referred to vaguely
-- [ ] Topic is covered comprehensively enough that AI sees this as a complete source, not a partial one
-- [ ] Semantic keywords and related concepts are present — AI engines map topic coverage, not just keyword density
+Add at least 2–3 human moments: a surprising stat, a counterintuitive point, a concrete micro-example, or a direct question to the reader.
 
 ---
 
-## Stage 5 — AI-Pattern Detection & Humanization
-
-### Goal
-Identify and eliminate writing patterns that signal AI generation. Replace with natural, human phrasing.
-
-### Known AI-Pattern Library
-
-Scan the draft against all patterns in the full library. Categories covered: structural red flags, phrase-level red flags, conclusion-specific patterns, rhythm issues, flow and transition issues, structural issues (H2/H3 consistency, FAQ placement, heading format, tool URLs, evidence gaps).
-
-→ See full pattern library with tables and fix instructions: **`references/ai-pattern-library.md`**
-
-### Humanization Instructions
-1. Read through the draft and highlight every AI pattern found.
-2. Rewrite flagged sections using alternatives from the table above.
-3. Add at least 2–3 "human moments": a surprising stat, a counterintuitive point, a concrete micro-example, or a direct question to the reader.
-4. Read the final version aloud (mentally) — if it sounds like a robot, rewrite.
+Only after all 8 checks pass → output the single final draft.
 
 ---
 
-## Stage 6 — Scoring & Evaluation Report
+## Stage 4 — Scoring & Evaluation Report
 
-After completing all stages, produce a structured evaluation of the final article.
+After completing Stage 3, produce a structured evaluation of the final article.
 
 ### Output Format
 
@@ -645,8 +599,8 @@ After delivering the scoring report, ask the user:
 
 ## Usage Notes
 
-- **Entering mid-pipeline**: If user provides an existing article, start at Stage 4 (checklist), then Stage 5 (humanization), then produce Stage 6 (report).
-- **Partial runs**: If user only asks for keyword research, run Stage 1–2 only. If they ask to "check" or "score" an article, run Stage 4–6.
+- **Entering mid-pipeline**: If user provides an existing article, run Stage 3b checklist (SEO + GEO + AI-pattern), then produce Stage 4 scoring report.
+- **Partial runs**: If user only asks for keyword research, run Stage 1–2 only. If they ask to "check" or "score" an article, run Stage 3b checklist then Stage 4.
 - **Language**: Default to the language of the user's topic/request. Do not switch languages mid-pipeline.
 - **Tone calibration**: Ask the user for brand voice guidance before Stage 3 if not already clear from context (e.g., formal vs. conversational, B2B vs. consumer).
 
