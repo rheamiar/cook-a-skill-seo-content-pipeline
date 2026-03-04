@@ -1,6 +1,6 @@
 # Scoring Rubric
 
-Reference file for Stage 6 — Scoring & Evaluation Report.
+Reference file for Stage 4 — Scoring & Evaluation Report.
 
 ## Output Format
 
