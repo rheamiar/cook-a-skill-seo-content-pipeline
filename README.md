@@ -16,16 +16,14 @@ Writing SEO content manually is slow, inconsistent, and easy to get wrong. Most 
 
 ## What It Does
 
-Runs 6 stages in sequence, each building on the previous:
+Runs 4 stages in sequence, each building on the previous:
 
 | Stage | What happens |
 |---|---|
 | 1. Keyword Research | Finds primary + secondary keywords using Google Trends, X/Twitter buzz, and Ahrefs data. Scores each keyword on volume, difficulty, trend, and social buzz. |
 | 2. Outline | Builds a logic-driven structure mapped to long-tail keywords. Expands sections with real community reactions from social data. |
-| 3. Draft | Writes the full article in human style — varied sentence rhythm, transitions, no AI filler phrases, minimum 3 sourced data points. |
-| 4. SEO + GEO Checklist | Runs on-page SEO audit (title, meta, keyword density, schema) plus GEO audit (AI-extractable answers, authority signals, entity coverage). |
-| 5. AI-Pattern Detection | Scans for and rewrites AI writing patterns — dash overuse, "represents" constructions, conclusion clichés, rhythm issues. |
-| 6. Scoring Report | Grades the article across 6 dimensions (60 points total) with strengths, priority fixes, and quick wins. |
+| 3. Draft | Writes the full article then runs an internal self-review — SEO audit, GEO audit, AI-pattern detection, and burstiness check — before outputting a single clean final draft. |
+| 4. Scoring Report | Grades the article across 6 dimensions (60 points total) with strengths, priority fixes, and quick wins. |
 
 ---
 
@@ -59,7 +57,7 @@ cook-a-skill-seo-content-pipeline/
 ├── ai-showcase/                      # Screenshots and conversation examples
 └── references/
     ├── ai-pattern-library.md         # Full AI pattern detection tables + fix instructions
-    ├── scoring-rubric.md             # Stage 6 scoring template (6 dimensions, 60 points)
+    ├── scoring-rubric.md             # Stage 4 scoring template (6 dimensions, 60 points)
     └── keyword-scoring.md            # Keyword scoring formula + Ahrefs fallback modes
 ```
 
@@ -87,7 +85,7 @@ Claude (claude.ai Projects) · Ahrefs API · Semrush Free Keyword Tool · Google
 - Add Vietnamese language support with VN-specific SEO rules
 - Add automatic internal linking suggestions based on existing content library
 - Connect to Google Search Console for real ranking data as input
-- Multiple entry points: optimize existing draft (Stage 4→5→6) or full rewrite from draft (Stage 2→3→4→5→6)
+- Multiple entry points: optimize existing draft (Stage 3→4) or full rewrite from outline (Stage 2→3→4)
 - CMS integration (WordPress/Ghost) to publish directly from output
 - Native Ahrefs API integration via Claude Code or Dify — pulls live volume and KD data without manual copy-paste
 
