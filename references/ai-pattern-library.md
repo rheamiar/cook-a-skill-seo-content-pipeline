@@ -1,6 +1,6 @@
 # AI Pattern Library
 
-Reference file for Stage 5 — AI-Pattern Detection & Humanization.
+Reference file for Stage 3b — AI-Pattern Detection & Humanization.
 
 ## Structural Red Flags
 
