@@ -106,7 +106,7 @@ A full pipeline report delivered as plain text in chat (no file unless requested
 ## Scope — MVP (2 days)
 
 **In scope:**
-- All 6 stages running end-to-end in Claude Project
+- All 4 stages running end-to-end in Claude Project
 - Ahrefs API integration with 2-level fallback
 - AI-pattern detection library (phrases, rhythm, conclusion clichés)
 - SEO + GEO dual optimization checklist
